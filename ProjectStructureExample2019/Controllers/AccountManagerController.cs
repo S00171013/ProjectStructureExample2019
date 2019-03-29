@@ -21,21 +21,18 @@ namespace ProjectStructureExample2019.Controllers
         {
             var currentuser = db.getUserByName(User.Identity.Name);
             if (currentuser != null) {
-                var CurrnetUserPortfoliio = db.GetAccountsByUser(currentuser.Id);
-                if(CurrnetUserPortfoliio.accounts.Count() < 1)
+                var CurrentUserPortfolio = db.GetAccountsByUser(currentuser.Id);
+                if(CurrentUserPortfolio.accounts.Count() < 1)
                 {
                     var  msg = new HttpResponseMessage(HttpStatusCode.OK)
-                                { ReasonPhrase = "There are no accounts to manage for this user " };
+                                { ReasonPhrase = "There are no accounts to manage for this user." };
                     throw new HttpResponseException(msg);
                 }
-                return CurrnetUserPortfoliio;
+                return CurrentUserPortfolio;
             }
             var msg1 = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                            { ReasonPhrase = "User is not an account manager " };
+                            { ReasonPhrase = "User is not an account manager." };
             throw new HttpResponseException(msg1);
-
-
-
         }
 
         [Route("getAccountsForCurrentManager/{id}")]
@@ -43,6 +40,5 @@ namespace ProjectStructureExample2019.Controllers
         {
             return db.GetAccountsByUser(id).accounts;
         }
-
     }
 }

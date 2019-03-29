@@ -16,13 +16,13 @@ namespace ProjectStructureExampleConsoleApp
             ClientAuthentication.baseWebAddress = "http://localhost:51132/";
             if (ClientAuthentication.login("bowles.lionie@itsligo.ie", "LBowles$1"))
             {
-                Console.WriteLine("Successful login Token acquired {0} user status is {1}", ClientAuthentication.AuthToken,ClientAuthentication.AuthStatus.ToString());
+                Console.WriteLine("Successful login Token acquired:\n{0}\n\nUser status is {1}", ClientAuthentication.AuthToken, ClientAuthentication.AuthStatus.ToString());
                 try
                 {
                     AccountUserViewModel acuvm = ClientAuthentication.getItem<AccountUserViewModel>("api/AccountManager/getAccounts");
                     if (acuvm != null)
                     {
-                        Console.WriteLine("Got {0} accounts for current logged in user {1}", acuvm.accounts.Count(), acuvm.AccountManagerName);
+                        Console.WriteLine("Got {0} accounts for currently logged in user {1}\n", acuvm.accounts.Count(), acuvm.AccountManagerName);
                         // Get account list using current UserID
                         List<Account> accounts = ClientAuthentication.getList<Account>("api/AccountManager/getAccountsForCurrentManager/" + acuvm.AccountManagerID);
                         foreach (var item in accounts)
@@ -30,16 +30,38 @@ namespace ProjectStructureExampleConsoleApp
                             Console.WriteLine("Account Name {0}", item.AccountName);
                         }
                     }
-
-
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Error {0} --> {1}", ex.Message, ex.InnerException.Message);
                 }
                 Console.ReadKey();
             }
 
+            // Admin login.
+            //if (ClientAuthentication.login("powell.paul@itsligo.ie", "Ppowell$1"))
+            //{
+            //    Console.WriteLine("Successful login Token acquired:\n{0}\n\nUser status is {1}", ClientAuthentication.AuthToken, ClientAuthentication.AuthStatus.ToString());
+            //    //try
+            //    //{
+            //    //    AccountUserViewModel acuvm = ClientAuthentication.getItem<AccountUserViewModel>("api/AccountManager/getAccounts");
+            //    //    if (acuvm != null)
+            //    //    {
+            //    //        Console.WriteLine("Got {0} accounts for currently logged in user {1}\n", acuvm.accounts.Count(), acuvm.AccountManagerName);
+            //    //        // Get account list using current UserID
+            //    //        List<Account> accounts = ClientAuthentication.getList<Account>("api/AccountManager/getAccountsForCurrentManager/" + acuvm.AccountManagerID);
+            //    //        foreach (var item in accounts)
+            //    //        {
+            //    //            Console.WriteLine("Account Name {0}", item.AccountName);
+            //    //        }
+            //    //    }
+            //    //}
+            //    //catch (Exception ex)
+            //    //{
+            //    //    Console.WriteLine("Error {0} --> {1}", ex.Message, ex.InnerException.Message);
+            //    //}
+            //    Console.ReadKey();
+            //}
         }
     }
 }

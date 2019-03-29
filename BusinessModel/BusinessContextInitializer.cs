@@ -10,22 +10,18 @@ namespace BusinessModel
 {
     class BusinessContextInitializer : DropCreateDatabaseIfModelChanges<BusinessContext>
     {
-        public BusinessContextInitializer() 
+        public BusinessContextInitializer()
         {
-
         }
 
         protected override void Seed(BusinessContext context)
         {
-
             context.Accounts.AddOrUpdate(new Account[]
             {
                 new Account{ AccountName = "ABS LTD", InceptionDate = new DateTime(1965,12,02) },
-                   new Account{ AccountName = "ABC LTD", InceptionDate = new DateTime(2001,5,22) },
-                    new Account{ AccountName = "Littlewoods", InceptionDate = new DateTime(1998,4,23) },
-                     
+                new Account{ AccountName = "ABC LTD", InceptionDate = new DateTime(2001,5,22) },
+                new Account{ AccountName = "Littlewoods", InceptionDate = new DateTime(1998,4,23) },
             });
-
             base.Seed(context);
         }
     }

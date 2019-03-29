@@ -18,9 +18,8 @@ namespace ProjectStructureExample2019.Models
         protected override void Seed(ApplicationDbContext context)
         {
             var manager =
-                            new UserManager<ApplicationUser>(
-                                new UserStore<ApplicationUser>(context));
-            
+                new UserManager<ApplicationUser>(
+                    new UserStore<ApplicationUser>(context));
 
             context.Roles.AddOrUpdate(r => r.Name,
                 new IdentityRole { Name = "Admin" }
@@ -66,12 +65,13 @@ namespace ProjectStructureExample2019.Models
                     SecondName = "Blithe",
                     PasswordHash = ps.HashPassword("RBlithe$1")
                 },
+                });
 
-                }
-                    );
             context.SaveChanges();
+
             // Assign Roles
             ApplicationUser ChosenClubAdmin = manager.FindByEmail("powell.paul@itsligo.ie");
+
             if (ChosenClubAdmin != null)
             {
                 manager.AddToRoles(ChosenClubAdmin.Id, new string[] { "Admin" });
@@ -105,8 +105,8 @@ namespace ProjectStructureExample2019.Models
                 var users = context.Users.ToList();
                 // Get users in roles
                 var AccountManagers = (from c in users
-                              where c.Roles.Any(r => r.RoleId == roles.First().Id)
-                              select c);
+                                       where c.Roles.Any(r => r.RoleId == roles.First().Id)
+                                       select c);
                 // Assign a random user to a company
                 foreach (var company in bctx.Accounts)
                 {
